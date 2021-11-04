@@ -15,6 +15,20 @@ export class AppComponent implements OnInit {
   appState$: Observable<AppState<CustomResponse>>;
   constructor(private serverService: ServerService) {}
 
+  columnDefs = [
+    { field: 'id' },
+    { field: 'ipAddress' },
+    { field: 'name' },
+    { field: 'memory' },
+    { field: 'type' },
+  ];
+
+  rowData = [
+    { make: 'Toyota', model: 'Celica', price: 35000 },
+    { make: 'Ford', model: 'Mondeo', price: 32000 },
+    { make: 'Porsche', model: 'Boxter', price: 72000 }
+  ];
+
   ngOnInit(): void {
     this.appState$ = this.serverService.servers$.pipe(map(response => {
       return { dataState: DataState.LOADED_STATE, appData: response };

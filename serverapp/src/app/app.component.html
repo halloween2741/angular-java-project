@@ -1,1 +1,10 @@
 <div>{{ appState$ | async | json }}</div>
+<div *ngIf="(appState$ | async) as appState">
+  <ag-grid-angular
+    style="width: 500px; height: 150px;"
+    class="ag-theme-alpine"
+    [rowData]="appState.appData.data.servers"
+    [columnDefs]="columnDefs">
+  </ag-grid-angular>
+</div>
+
