@@ -32,7 +32,7 @@ export class ServerService {
       tap(console.log),
       catchError(this.handleError)
     )
-
+  /*
   filter$ = (status: Status, response: CustomResponse) => <Observable<CustomResponse>>
     new Observable<CustomResponse>(
       suscriber => {
@@ -50,6 +50,7 @@ export class ServerService {
         suscriber.complete();
       }
     )
+    */
 
   delete$ = (serverId: number) => <Observable<CustomResponse>>
     this.http.delete<CustomResponse>(`${this.apiUrl}/server/delete/${serverId}`).pipe(

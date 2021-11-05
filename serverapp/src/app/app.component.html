@@ -1,10 +1,21 @@
-<div>{{ appState$ | async | json }}</div>
-<div *ngIf="(appState$ | async) as appState">
-  <ag-grid-angular
-    style="width: 500px; height: 150px;"
-    class="ag-theme-alpine"
-    [rowData]="appState.appData.data.servers"
-    [columnDefs]="columnDefs">
-  </ag-grid-angular>
+<div>
+  <button (click)="save()">add</button>
+  <button (click)="delete()" [disabled]="!selectedData$">Delete</button>
 </div>
+<ng-container *ngIf="(appState$ | async) as appState" [ngSwitch]="appState.dataState">
+  <ng-container  *ngSwitchCase="DataState.LOADED_STATE">
+    <ag-grid-angular
+      style="width: 100%; height: 500px;"
+      class="ag-theme-alpine"
+      [columnDefs]="columnDefs"
+      (onCellValueChanged)="onCellValueChanged($event)"
+      [rowData]="appState.appData.data.students"
+      rowSelection="single"
+      (selectionChanged)="onSelectionChanged($event)"
+      suppressCellSelection="false"
+    >
+    </ag-grid-angular>
+  </ng-container>
+
+</ng-container>
 

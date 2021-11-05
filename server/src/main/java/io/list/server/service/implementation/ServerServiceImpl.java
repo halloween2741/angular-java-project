@@ -7,6 +7,8 @@ import java.util.Random;
 
 import javax.transaction.Transactional;
 
+import io.list.server.model.Student;
+import io.list.server.repo.StudentRepo;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +28,18 @@ import static java.lang.Boolean.TRUE;
 @Slf4j
 public class ServerServiceImpl implements ServerService {
     private final ServerRepo serverRepo;
-
+    private final StudentRepo studentRepo;
     @Override
     public Server create(Server server) {
         log.info("Saving new server: {}", server.getName());
         return serverRepo.save(server);
     }
+
+    public Student createStudent(Student student) {
+        log.info("Saving new student");
+        return studentRepo.save(student);
+    }
+
 
     @Override
     public Server ping(String ipAddress) throws IOException {
@@ -49,6 +57,12 @@ public class ServerServiceImpl implements ServerService {
         return serverRepo.findAll(PageRequest.of(0, limit)).toList();
     }
 
+    public Collection<Student> students(int limit) {
+        log.info("Fetching all students");
+        return studentRepo.findAll(PageRequest.of(0, limit)).toList();
+    }
+
+
     @Override
     public Server get(Long id) {
         log.info("Fetching server by id: {}", id);
@@ -61,12 +75,24 @@ public class ServerServiceImpl implements ServerService {
         return serverRepo.save(server);
     }
 
+    public Student updateStudent(Student student) {
+        log.info("Updating student");
+        return studentRepo.save(student);
+    }
+
     @Override
     public Boolean delete(Long id) {
         log.info("deleting server by ID: {}", id);
         serverRepo.deleteById(id);
         return TRUE;
     }
+
+    public Boolean deleteStudent(Long id) {
+        log.info("deleting student by ID: {}", id);
+        studentRepo.deleteById(id);
+        return TRUE;
+    }
+
 
     private Object setServerImageUrl() {
         String[] imageNames = { "server1.png", "server2.png", "server3.png", "server4.png" };

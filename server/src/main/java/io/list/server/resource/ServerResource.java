@@ -11,6 +11,7 @@ import static java.time.LocalDateTime.now;
 
 import static java.util.Map.of;
 
+import io.list.server.model.Student;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,17 @@ public class ServerResource {
                                          .build());
     }
 
+    @DeleteMapping("/deleteStudent/{id}")
+    public ResponseEntity<Response> deleteStudent(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(Response.builder()
+                .timeStamp(now())
+                .data(of("deleted", serverService.deleteStudent(id)))
+                .message("Server deleted")
+                .status(OK)
+                .statusCode(OK.value())
+                .build());
+    }
+
     @PostMapping("/save")
     public ResponseEntity<Response> pingServer(@RequestBody
     @Valid Server server) {
@@ -53,6 +65,30 @@ public class ServerResource {
                                          .status(CREATED)
                                          .statusCode(CREATED.value())
                                          .build());
+    }
+
+    @PostMapping("/saveStudent")
+    public ResponseEntity<Response> saveStudentServer(@RequestBody
+                                               @Valid Student student) {
+        return ResponseEntity.ok(Response.builder()
+                .timeStamp(now())
+                .data(of("student", serverService.createStudent(student)))
+                .message("Server created")
+                .status(CREATED)
+                .statusCode(CREATED.value())
+                .build());
+    }
+
+    @PostMapping("/updateStudent")
+    public ResponseEntity<Response> updateStudentServer(@RequestBody
+                                                      @Valid Student student) {
+        return ResponseEntity.ok(Response.builder()
+                .timeStamp(now())
+                .data(of("students", serverService.updateStudent(student)))
+                .message("Server created")
+                .status(CREATED)
+                .statusCode(CREATED.value())
+                .build());
     }
 
     @GetMapping("/ping/{ipAddress}")
@@ -98,6 +134,17 @@ public class ServerResource {
                                          .status(OK)
                                          .statusCode(OK.value())
                                          .build());
+    }
+
+    @GetMapping("/listStudents")
+    public ResponseEntity<Response> getStudents() throws InterruptedException {
+        return ResponseEntity.ok(Response.builder()
+                .timeStamp(now())
+                .data(of("students", serverService.students(30)))
+                .message("Servers retrieved")
+                .status(OK)
+                .statusCode(OK.value())
+                .build());
     }
 }
 
