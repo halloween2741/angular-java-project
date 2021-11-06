@@ -59,7 +59,7 @@ public class ServerApplication {
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:4200"));
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:4200", "http://students-angular-app.herokuapp.com", "https://students-angular-app.herokuapp.com"));
         corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-type", "Accept", "Jwt-Token", "Authorization", "Origin, Accept"));
         corsConfiguration.setExposedHeaders(Arrays.asList("Origin", "Content-type", "Accept", "Access-Control-Allow-Origin"));
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));

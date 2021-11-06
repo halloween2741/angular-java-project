@@ -12,7 +12,7 @@ import { Student } from '../interface/student';
 })
 export class StudentService {
 
-  private readonly apiUrl = 'http://localhost:8080';
+  private readonly apiUrl = 'https://students-java-server.herokuapp.com';
 
   constructor(private http: HttpClient) { }
 
