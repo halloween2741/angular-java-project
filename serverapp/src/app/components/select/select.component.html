@@ -1,0 +1,3 @@
+<select matNativeControl (change)="selectValueUpdated($event)">
+  <option *ngFor="let option of this.options" [value]="option.value" [selected]="value === option.value">{{ option.viewValue }}</option>
+</select>

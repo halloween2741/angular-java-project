@@ -6,10 +6,11 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, startWith } from 'rxjs/operators';
 import { DataState } from './enum/data.state.enum';
 import { Server } from './interface/server';
-import { Status } from './enum/status.enum';
 import { StudentService } from './service/student.service';
 import { Student } from './interface/student';
 import { Levels } from './enum/levels.enum';
+import { SelectComponent } from './components/select/select.component';
+import { InputNumberComponent } from './components/input-number/input-number.component';
 
 @Component({
   selector: 'app-root',
@@ -23,9 +24,15 @@ export class AppComponent implements OnInit {
   selectedData$: Server = null;
   constructor(private serverService: ServerService, private studentService: StudentService) {}
 
+  readonly framework: object = {
+    isPreply: SelectComponent,
+    level: SelectComponent,
+    numPaidClasses: InputNumberComponent,
+  };
+
   readonly columns: string[] = ['name', 'isPreply', 'level', 'progressInfo', 'objectivesInfo', 'nextClassInfo', 'hobbiesInfo', 'numPaidClasses'];
 
-  columnDefs = this.columns.map((columnId) => ({ field: columnId, editable: true, sortable: true, filter: true, onCellValueChanged: this.onCellValueChanged.bind(this) }));
+  columnDefs = this.columns.map((columnId) => ({ field: columnId, editable: !this.framework[columnId], sortable: true, filter: true, onCellValueChanged: this.onCellValueChanged.bind(this), cellRenderer: this.framework[columnId] ? columnId : null }));
 
   public onCellValueChanged(params) {
     const { data } = params;
