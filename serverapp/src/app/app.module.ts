@@ -8,6 +8,7 @@ import { SelectComponent } from './components/select/select.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { InputNumberComponent } from './components/input-number/input-number.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { InputNumberComponent } from './components/input-number/input-number.com
     HttpClientModule,
     BrowserAnimationsModule,
     MatSelectModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

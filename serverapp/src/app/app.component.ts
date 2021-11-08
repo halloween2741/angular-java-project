@@ -46,7 +46,8 @@ export class AppComponent implements OnInit {
   }
 
   onSelectionChanged(param1) {
-    this.selectedData$ = param1.api.getSelectedNodes()[0].data;
+    const selectedNode = param1.api.getSelectedNodes()[0];
+    this.selectedData$ = selectedNode ? selectedNode.data : null;
   }
 
   ngOnInit(): void {
@@ -60,6 +61,7 @@ export class AppComponent implements OnInit {
 
   public delete(): void {
     const { id } = this.selectedData$;
+    this.selectedData$ = null;
     this.appState$ = this.studentService.delete$(id).pipe(map(response => {
       this.dataSubject.next({ ...response, data: { students: this.dataSubject.value.data.students.filter((student) => student.id !== id) } });
       return { dataState: DataState.LOADED_STATE, appData: this.dataSubject.value };
@@ -67,6 +69,7 @@ export class AppComponent implements OnInit {
   }
 
   save(): void {
+    this.selectedData$ = null;
     const initialStudentInfo: Student = {
       name: '',
       isPreply: true,
@@ -78,7 +81,7 @@ export class AppComponent implements OnInit {
       numPaidClasses: 0
     };
     this.appState$ = this.studentService.save$(initialStudentInfo).pipe(map(response => {
-      this.dataSubject.next({ ...response, data: { students: [response.data.student, ...this.dataSubject.value.data.students] } });
+      this.dataSubject.next({ ...response, data: { students: [response.data.students].concat([...this.dataSubject.value.data.students]) } });
       return { dataState: DataState.LOADED_STATE, appData: this.dataSubject.value };
     }));
   }

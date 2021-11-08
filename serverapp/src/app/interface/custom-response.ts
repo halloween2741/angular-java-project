@@ -7,5 +7,5 @@ export interface CustomResponse {
   reason: string;
   message: string;
   developerMessage: string;
-  data: { students?: Student[], student?: Student };
+  data: { students?: Student[] };
 }
