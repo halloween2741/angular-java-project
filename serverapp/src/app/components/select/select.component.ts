@@ -11,17 +11,16 @@ import { Levels } from '../../enum/levels.enum';
 
 export class SelectComponent implements AgRendererComponent {
   private agGridParams: any;
-  private value: string;
+  value: string;
   private field: string;
   options: string[];
   private optionsFields = {
     isPreply: [{ value: true, viewValue: 'yes' }, { value: false, viewValue: 'no' }],
-    level:  Object.values(Levels).map(level => ({ value: level, viewValue: level }))
+    level:  Object.values(Levels)
   };
 
   selectValueUpdated(selectElem) {
-    const newValue = selectElem.target.value;
-    this.agGridParams.setValue(newValue);
+    this.agGridParams.setValue(selectElem.value);
   }
 
   agInit(params: ICellRendererParams): void {

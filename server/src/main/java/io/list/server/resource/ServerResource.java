@@ -40,7 +40,7 @@ public class ServerResource {
                                                @Valid Student student) {
         return ResponseEntity.ok(Response.builder()
                 .timeStamp(now())
-                .data(of("students", serverService.createStudent(student)))
+                .data(of("student", serverService.createStudent(student)))
                 .message("Server created")
                 .status(CREATED)
                 .statusCode(CREATED.value())
@@ -63,7 +63,7 @@ public class ServerResource {
     public ResponseEntity<Response> getStudents() throws InterruptedException {
         return ResponseEntity.ok(Response.builder()
                 .timeStamp(now())
-                .data(of("students", serverService.students(30)))
+                .data(of("students", serverService.students(50)))
                 .message("Servers retrieved")
                 .status(OK)
                 .statusCode(OK.value())

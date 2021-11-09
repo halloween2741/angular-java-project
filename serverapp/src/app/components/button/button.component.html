@@ -1,0 +1,10 @@
+<ng-container *ngIf="this.value">
+  <button mat-icon-button color="green" aria-label="Example icon button with a home icon" (click)="onClick()">
+    <i class="material-icons">check_circle</i>
+  </button>
+</ng-container>
+<ng-container *ngIf="!this.value">
+  <button mat-icon-button color="red" aria-label="Example icon button with a home icon" (click)="onClick()">
+    <i class="material-icons">close</i>
+  </button>
+</ng-container>

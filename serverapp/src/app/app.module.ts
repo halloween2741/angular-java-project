@@ -9,12 +9,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ButtonComponent } from './components/button/button.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ButtonComponent,
     SelectComponent,
-    InputNumberComponent
+    InputNumberComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserAnimationsModule,
     MatSelectModule,
     MatButtonModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

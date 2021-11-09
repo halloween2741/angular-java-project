@@ -11,6 +11,7 @@ import { Student } from './interface/student';
 import { Levels } from './enum/levels.enum';
 import { SelectComponent } from './components/select/select.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
+import { ButtonComponent } from './components/button/button.component';
 
 @Component({
   selector: 'app-root',
@@ -19,13 +20,12 @@ import { InputNumberComponent } from './components/input-number/input-number.com
 })
 export class AppComponent implements OnInit {
   appState$: Observable<AppState<CustomResponse>>;
-  readonly DataState = DataState;
   private dataSubject = new BehaviorSubject<CustomResponse>(null);
   selectedData$: Server = null;
   constructor(private serverService: ServerService, private studentService: StudentService) {}
 
   readonly framework: object = {
-    isPreply: SelectComponent,
+    isPreply: ButtonComponent,
     level: SelectComponent,
     numPaidClasses: InputNumberComponent,
   };
@@ -81,7 +81,9 @@ export class AppComponent implements OnInit {
       numPaidClasses: 0
     };
     this.appState$ = this.studentService.save$(initialStudentInfo).pipe(map(response => {
-      this.dataSubject.next({ ...response, data: { students: [response.data.students].concat([...this.dataSubject.value.data.students]) } });
+      const students: Student[] = [...this.dataSubject.value.data.students];
+      students.push(response.data.student);
+      this.dataSubject.next({ ...response, data: { students } });
       return { dataState: DataState.LOADED_STATE, appData: this.dataSubject.value };
     }));
   }
