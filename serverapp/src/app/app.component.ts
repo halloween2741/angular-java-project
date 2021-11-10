@@ -32,7 +32,17 @@ export class AppComponent implements OnInit {
 
   readonly columns: string[] = ['name', 'isPreply', 'level', 'progressInfo', 'objectivesInfo', 'nextClassInfo', 'hobbiesInfo', 'numPaidClasses'];
 
-  columnDefs = this.columns.map((columnId) => ({ field: columnId, editable: !this.framework[columnId], sortable: true, filter: true, onCellValueChanged: this.onCellValueChanged.bind(this), cellRenderer: this.framework[columnId] ? columnId : null }));
+  columnDefs = this.columns.map((columnId) => (
+    { field: columnId,
+      cellRenderer: this.framework[columnId] ? columnId : null,
+      editable: !this.framework[columnId],
+      flex: 1,
+      sortable: true,
+      filter: true,
+      onCellValueChanged: this.onCellValueChanged.bind(this),
+      tooltipField: columnId,
+    }
+  ));
 
   public onCellValueChanged(params) {
     const { data } = params;
