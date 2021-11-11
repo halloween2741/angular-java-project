@@ -14,7 +14,7 @@ export class StudentService {
 
   private readonly apiUrl = 'https://students-java-server.herokuapp.com';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   students$ = <Observable<CustomResponse>>
     this.http.get<CustomResponse>(`${this.apiUrl}/server/listStudents`).pipe(

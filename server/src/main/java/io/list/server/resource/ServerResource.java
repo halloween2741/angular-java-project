@@ -7,6 +7,7 @@ import static java.time.LocalDateTime.now;
 import static java.util.Map.of;
 
 import io.list.server.model.Student;
+import io.list.server.service.implementation.AGGridServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +20,11 @@ import io.list.server.service.implementation.ServerServiceImpl;
 @RequestMapping("/server")
 public class ServerResource {
     private final ServerServiceImpl serverService;
+    private final AGGridServiceImpl agGridService;
 
-    public ServerResource(ServerServiceImpl serverService) {
+    public ServerResource(ServerServiceImpl serverService, AGGridServiceImpl agGridService) {
         this.serverService = serverService;
+        this.agGridService = agGridService;
     }
 
     @DeleteMapping("/deleteStudent/{id}")
@@ -65,6 +68,17 @@ public class ServerResource {
                 .timeStamp(now())
                 .data(of("students", serverService.students(50)))
                 .message("Servers retrieved")
+                .status(OK)
+                .statusCode(OK.value())
+                .build());
+    }
+
+    @GetMapping("/agGridInfo")
+    public ResponseEntity<Response> getAGGridInfo() throws InterruptedException {
+        return ResponseEntity.ok(Response.builder()
+                .timeStamp(now())
+                .data(of("agGrid", agGridService.getInfo()))
+                .message("agGrid info retrieved")
                 .status(OK)
                 .statusCode(OK.value())
                 .build());
