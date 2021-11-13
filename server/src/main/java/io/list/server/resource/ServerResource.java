@@ -6,6 +6,7 @@ import static java.time.LocalDateTime.now;
 
 import static java.util.Map.of;
 
+import io.list.server.model.AGGrid;
 import io.list.server.model.Student;
 import io.list.server.service.implementation.AGGridServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -50,13 +51,13 @@ public class ServerResource {
                 .build());
     }
 
-    @PostMapping("/updateStudent")
+    @PatchMapping("/updateStudent")
     public ResponseEntity<Response> updateStudentServer(@RequestBody
                                                       @Valid Student student) {
         return ResponseEntity.ok(Response.builder()
                 .timeStamp(now())
                 .data(of("students", serverService.updateStudent(student)))
-                .message("Server created")
+                .message("Student updated")
                 .status(CREATED)
                 .statusCode(CREATED.value())
                 .build());
@@ -81,6 +82,18 @@ public class ServerResource {
                 .message("agGrid info retrieved")
                 .status(OK)
                 .statusCode(OK.value())
+                .build());
+    }
+
+    @PatchMapping("/updateAGGridInfo")
+    public ResponseEntity<Response> updateAGGridInfo(@RequestBody
+                                                         @Valid AGGrid aggrid) throws InterruptedException {
+        return ResponseEntity.ok(Response.builder()
+                .timeStamp(now())
+                .data(of("agGrid", agGridService.updateAGGrid(aggrid)))
+                .message("agGrid info retrieved")
+                .status(CREATED)
+                .statusCode(CREATED.value())
                 .build());
     }
 }

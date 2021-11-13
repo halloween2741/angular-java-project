@@ -4,11 +4,10 @@ import io.list.server.model.AGGrid;
 import io.list.server.repo.AGGridRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -18,8 +17,13 @@ public class AGGridServiceImpl {
 
     private final AGGridRepo aggridRepo;
 
-    public Collection<AGGrid> getInfo() {
-        log.info("Saving new student");
-        return aggridRepo.findAll(PageRequest.of(0, 50)).toList();
+    public Optional<AGGrid> getInfo() {
+        log.info("Saving new aggrid");
+        return aggridRepo.findById(0L);
+    }
+
+    public AGGrid updateAGGrid(AGGrid agGrid) {
+        log.info("Updating aggrid");
+        return aggridRepo.save(agGrid);
     }
 }
